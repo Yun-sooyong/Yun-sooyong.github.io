@@ -40,7 +40,6 @@ df.describe() # 데이터 통계 요약
 ## 열(Column) 선택
 ```python
 # 세로방향 선택 
-
 # 한 개의 열 선택 
 df["age"]
 
@@ -52,7 +51,6 @@ df[["name", "age"]]
 
 ### 조건 필터링
 ```python
-
 # 60살 이상인 데이터만 필터링 
 df[df["age"] >= 60] 
 
@@ -65,7 +63,6 @@ df[(df["age"] >= 60) & (df["gender"] == "M")]
 ---
 ## 결측치 확인 
 ```python
-
 df.isnull()
 df.isnull().sum()
 
@@ -75,8 +72,27 @@ df[df["age"].isull()]
 
 ## 결측치 처리 
 
+### 결측치 제거 
+```python
+df.dropna()
+```
+### 특정 값으로 결측치 채우기 
+```python
+# 결측치를 전부 0으로 변경
+df.fillna(0)
+```
+### 평균값으로 채우기
+```python
+# "age" 열에 있는 결측치를 "age" 열의 평균치로 채움
+df["age"] = df["age"].fillna(df["age"].mean())
+
+# 
+```
 ---
 ## 정렬 
+```python
+
+```
 ---
 ## 그룹화와 집계
 ---
