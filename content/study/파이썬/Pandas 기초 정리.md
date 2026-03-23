@@ -1,3 +1,9 @@
+---
+title: pandas 기초 정리 
+tags:
+  - python
+  - pandas
+---
 
 # Pandas 기초 
 
@@ -141,10 +147,27 @@ df["is_senior"] = df["age"] >= 65
 df["name"].str.lower()
 # 문자열 대문자 변환
 df["name"].str.upper()
-# contains 는 해당 문자열이 포함된 행이 있나 
+# contains 는 특정 문자열이 포함된 행이 있나 찾고 있으면 True, 없으면 False를 반환
 df["name"].str.contains("Kim")
 ```
 ---
 ## 날짜 처리 
+```python
+df["date"] = pd.to_datetime(df["date"])
+
+# 연도, 월, 일 추출
+df["year"] = df["date"].dt.year
+df["month"] = df["date"].dt.month
+df["day"] = df["date"].dt.day
+```
 ---
 ## 파일 저장
+```python
+# index=False 를 설정해주면 불필요한 인덱스가 저장되지 않음
+df.to_csv("output.csv", index=False)
+```
+---
+
+기초 정리 
+[[파이썬 기초 정리]]
+[[SQL 기초 정리]]
