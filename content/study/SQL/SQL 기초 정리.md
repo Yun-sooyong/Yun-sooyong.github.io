@@ -38,3 +38,60 @@ SELECT *
 FROM patients
 WHERE age >= 60 AND gender = 'M';
 ```
+- AND, OR, IN, NOT, BETWEEN, IS NULL 같은 논리 연산자들이 존재
+---
+
+## ORDER BY : 정렬
+```SQL 
+-- 오름차순
+SELECT *
+FROM patients
+ORDER BY age;
+
+-- 내림차순
+SELECT *
+FROM patients
+ORDER BY age DESC;
+```
+---
+
+## LIMIT : 개수 제한 
+```SQL
+-- patients 테이블에서 위에서 10줄 까지만 가져옴 
+SELECT *
+FROM patients
+LIMIT 10;
+```
+---
+
+##  COUNT / AVG / MAX / MIN : 집계 함수 
+```SQL
+-- COUNT 
+-- patients 테이블의 전체 행의 개수를 반환
+SELECT COUNT(*)
+FROM patients;
+
+-- AVG
+-- age의 평균을 반환
+SELECT AVG(age)
+FROM patients;
+
+-- MAX / MIN 
+-- 최대, 최소값을 반환
+SELECT MAX(age), MIN(age)
+FROM patients;
+```
+---
+
+## GROUP BY : 그룹화
+```SQL
+-- 성별을 기준으로 그룹화 하고 해당 성별에 있는 사람 수을 셈
+SELECT gender, COUNT(*) AS patient_count 
+FROM patients
+GROUP BY gender;
+
+-- 성별 별로 평균 나이를 구함 
+SELECT gender, AVG(age) AS avg_age
+FROM patients
+GROUP BY gender; 
+```
