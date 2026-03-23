@@ -128,10 +128,22 @@ df.groupby("gender")["age"].agg(["count", "mean", "max", "min"])
 ---
 ## 새로운 컬럼 만들기 
 ```python
+# add_age 라는 column을 만들고 age에서 10을 더한 값 넣어서 생성
 df["add_age"] = df["age"] + 10
+
+# is_senior라는 column을 만들고 65세 이상이면 true 아니면 false 를 채움
+df["is_senior"] = df["age"] >= 65
 ```
 ---
 ## 문자열 처리 
+```python
+# 문자열 소문자 변환
+df["name"].str.lower()
+# 문자열 대문자 변환
+df["name"].str.upper()
+# contains 는 해당 문자열이 포함된 행이 있나 
+df["name"].str.contains("Kim")
+```
 ---
 ## 날짜 처리 
 ---
