@@ -9,6 +9,28 @@ tags:
 # SQL 기초
 > SQL은 데이터베이스에서 데이터를 조회, 정리, 분석할 때 사용하는 언어
 ---
+## Pandas 와 SQL 연결
+pandas와 sql 은 같이 사용하는 경우가 많다 
+주로 사용되는 흐름은 아래와 같다 
+- SQL 을 사용해 DB에서 필요한 데이터를 정제, 추출 
+- pandas를 사용해 불러온 데이터를 전처리 
+- 시각화나 머신러닝 모델에 적용 
+```python
+import pandas as pd
+import sqlite3
+
+conn = sqlite3.connect("sample.db")
+
+query = """
+SELECT patient_id, age, gender
+FROM patients
+WHERE age >= 60;
+"""
+# df는 sample.db에서 쿼리문을 실행한 결과값을 가진다 
+df = pd.read_sql(query, conn)
+print(df.head())
+```
+---
 ##  ⭐ SELECT : 기본 조회
 ```SQL
 -- patient 테이블의 전체 열을 가져오기 
@@ -107,6 +129,7 @@ HAVING COUNT(*) >= 100;
 ```
 > [!tip] WHERE 과 HAVING의 차이 
 > WHERE : 그룹화 전 조건 설정
+> 
 > HAVING : 그룹화 후 조건 설정 
 ---
 
@@ -124,5 +147,33 @@ FROM patients p
 INNER JOIN admissions a
 ON p.patients_id = a.patient_id
 ```
-- INNER JOIN : 교집합, 양쪽 테이블에 공통으로 존재하는 데이터만 가져옴
-- LEFT JOIN : 왼쪽(patients)은 전부, 오른쪽(admissions)은 데이터가 있으면 합
+- ON : 테이블을 합칠 때의 기준이 되는 조건 
+
+### 여러가지 JOIN
+- INNER JOIN : ==교집합==, 양쪽 테이블에 공통으로 존재하는 데이터만 가져옴
+- LEFT JOIN : 왼쪽(patients)은 전부, 오른쪽(admissions)은 데이터가 있으면 합치고 없으면 NULL을 추가
+- RIGHT JOIN : 오른쪽(admissions)은 전부, 왼쪽(patients)은 데이터가 있으면 합치고 없으면 NULL을 추가 
+- FULL JOIN : ==합집합==, 양쪽 테이블의 데이터를 전부 합침, 짝이 없으면 NULL을 추가
+
+
+> [!tip] LEFT, RIGHT 의 구분 
+> JOIN 보다 앞쪽에 사용된 테이블이 LEFT
+> JOIN 이후에 추가된 테이블이 RIGHT
+---
+
+## 별칭 사용 
+```SQL 
+SELECT p.name, p.age
+FROM patients AS p;
+```
+- AS : 테이블이나 컬럼의 별칭을 지정할 때 사용, 생략가능 
+---
+
+## SQL 실행 순서 개념 
+1. FROM
+2. WHERE
+3. GROUP BY
+4. HAVING
+5. SELECT
+6. ORDER BY
+7. LIMIT
