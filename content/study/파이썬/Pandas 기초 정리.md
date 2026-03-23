@@ -3,7 +3,7 @@ title: pandas 기초 정리
 tags:
   - python
   - pandas
-  - 기초 정리
+  - 기초
 ---
 
 # Pandas 기초 
