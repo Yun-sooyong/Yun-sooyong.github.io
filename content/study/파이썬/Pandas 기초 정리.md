@@ -86,15 +86,31 @@ df.fillna(0)
 # "age" 열에 있는 결측치를 "age" 열의 평균치로 채움
 df["age"] = df["age"].fillna(df["age"].mean())
 
-# 
+# 모든 column의 결측치를 각 열의 평균으로 채움 
+df = df.fillna(df.mean())
+```
+### 앞, 뒤의 값으로 채우기
+```python
+# 결측치를 한 칸 앞의 데이터로 대체
+df = df.ffill(axis=0)
+
+# 결측치를 한 칸 뒤의 데이터로 대체
+df = df.dfill(axis=0)
 ```
 ---
 ## 정렬 
 ```python
-
+# age column의 값을 기준으로 오름차순으로 데이터를 정렬
+df.sort_values("age") 
+# age column의 값을 기준으로 내림차순으로 데이터를 정렬
+df.sort_values("age", ascending=false)
 ```
 ---
 ## 그룹화와 집계
+
+### 그룹별 개수 세기 
+```pyt
+```
 ---
 ## 새로운 컬럼 만들기 
 ---
