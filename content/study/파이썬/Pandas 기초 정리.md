@@ -128,7 +128,7 @@ df.groupby("gender")["age"].agg(["count", "mean", "max", "min"])
 ---
 ## 새로운 컬럼 만들기 
 ```python
-
+df["add_age"] = df["age"] + 10
 ```
 ---
 ## 문자열 처리 
