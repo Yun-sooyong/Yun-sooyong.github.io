@@ -108,11 +108,28 @@ df.sort_values("age", ascending=false)
 ---
 ## 그룹화와 집계
 
-### 그룹별 개수 세기 
-```pyt
+```python
+# 그룹화 
+df.groupby("gender") # gender를 기준으로 그룹화
+
+# 그룹별 개수 세기
+# gender를 기준으로 그룹화하고 그룹 내에 age의 개수를 셈 
+df.groupby("gender")["age"].count()
+
+# 그룹별 평균 구하기
+# gender를 기준으로 그룹화하고 그룹 내에 age의 평균을 구함
+df.groupby("gender")["age"].mean()
+
+# 여러 통계값 함께 보기 
+# agg 함수를 사용해서 여러 통계랑을 동시에 계산
+# agg 를 사용하면 여러 집계 함수를 동시에 계산이 가능하고 사용자 정의 함수도 이용가능 
+df.groupby("gender")["age"].agg(["count", "mean", "max", "min"])
 ```
 ---
 ## 새로운 컬럼 만들기 
+```python
+
+```
 ---
 ## 문자열 처리 
 ---
