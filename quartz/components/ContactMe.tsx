@@ -35,7 +35,6 @@ ContactMe.css = `
 .contact-me {
   margin-top: 2rem;
   padding-top: 1rem;
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
