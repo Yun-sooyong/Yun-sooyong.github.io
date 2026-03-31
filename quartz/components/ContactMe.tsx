@@ -33,44 +33,44 @@ const ContactMe: QuartzComponent = (_props: QuartzComponentProps) => {
 
 ContactMe.css = `
 .contact-me {
+  width: 100%;
   margin-top: 2rem;
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 }
 
-.contact-divider {
+.contact-heading {
   width: 100%;
-  border-top: 1px solid var(--lightgray);
-  margin: 0.3rem 0;
-}
-
-.contact-title {
-  font-size: 0.85rem;
+  text-align: center;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--gray);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.03em;
 }
 
 .contact-links {
-  margin-top: 0.8rem;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.45rem;
+  font-size: 0.95rem;
 }
 
 .contact-link {
   text-decoration: none;
   color: var(--secondary);
-  font-size: 0.95rem;
 }
 
 .contact-link:hover {
   text-decoration: underline;
+}
+
+.contact-separator {
+  color: var(--gray);
 }
 `
 
