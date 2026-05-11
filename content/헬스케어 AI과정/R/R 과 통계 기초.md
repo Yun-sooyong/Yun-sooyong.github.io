@@ -1,6 +1,6 @@
 ---
-title: 017 R
-tag: 
+title: 017 R과 통계 기초
+tag:
   - 국비교육
   - R
 description: 260421 수업 내용 정리
