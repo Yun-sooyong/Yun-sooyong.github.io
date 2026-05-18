@@ -1,5 +1,5 @@
 ---
-title: 028 numpy
+title: 028 matplotlib
 tag:
   - 국비교육
   - numpy
