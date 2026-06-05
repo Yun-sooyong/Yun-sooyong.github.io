@@ -1,7 +1,7 @@
 ---
 title: 027 numpy
 tag:
-  - 국비교육
+  - 헬스케어 ai
   - numpy
 description: 2605012 수업 내용 정리
 ---

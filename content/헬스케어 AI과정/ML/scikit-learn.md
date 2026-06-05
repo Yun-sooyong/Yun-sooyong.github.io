@@ -1,7 +1,7 @@
 ---
 title: 036 scikit-learn
 tag:
-  - 국비교육
+  - 헬스케어 ai
   - ML
 description: 260602 수업 내용 정리
 ---

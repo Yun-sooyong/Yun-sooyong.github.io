@@ -1,7 +1,7 @@
 ---
 title: 037 tree-model
 tag:
-  - 국비교육
+  - 헬스케어 ai
   - ML
 description: 260604 수업 내용 정리
 ---

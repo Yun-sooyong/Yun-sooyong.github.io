@@ -1,9 +1,8 @@
 ---
 title: 020 Modern R
 tag: 
-  - 국비교육
+  - 헬스케어 ai
   - R
-  - 통계
 description: 260424 수업 내용 정리
 ---
 

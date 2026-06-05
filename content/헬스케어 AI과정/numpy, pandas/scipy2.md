@@ -1,7 +1,7 @@
 ---
 title: 035 scipy2
 tag:
-  - 국비교육
+  - 헬스케어 ai
   - scipy
 description: 2605027 수업 내용 정리
 ---

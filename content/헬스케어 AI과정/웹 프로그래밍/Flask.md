@@ -1,7 +1,7 @@
 ---
 title: 015 Flask
 tag: 
-  - 국비교육
+  - 헬스케어 ai
   - flask
 description: 260415 수업 내용 정리
 ---

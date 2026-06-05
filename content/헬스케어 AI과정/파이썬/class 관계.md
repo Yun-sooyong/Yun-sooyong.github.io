@@ -2,7 +2,7 @@
 title: 008 class 관계(relationship)
 tag:
   - python
-  - 국비교육
+  - 헬스케어 ai
 description: 260406 수업내용 정리
 ---
 
