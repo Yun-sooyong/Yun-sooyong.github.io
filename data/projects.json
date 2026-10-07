@@ -1,0 +1,29 @@
+{
+  "projects": [
+    {
+      "id": "empatho",
+      "name": "EMPATHO",
+      "status": "done",
+      "ownership": "team",
+      "team_size": 5,
+      "one_liner": "유방 영상(맘모그래피·초음파·MRI)과 병리 슬라이드를 AI가 판독해 의사의 판독을 돕는 유방암 임상 의사결정 지원 시스템(CDSS)",
+      "stack": [
+        "FastAPI",
+        "PyTorch",
+        "Ollama",
+        "Celery",
+        "Redis",
+        "Docker Compose",
+        "GitHub Actions",
+        "Supervisor",
+        "FCM"
+      ],
+      "repo": "https://github.com/medical-ai-group-3/empatho",
+      "my_role": [
+        "모델: 병리 sTIL 추론 · 서빙",
+        "서버·인프라: 판독 · 소견문 서버, Celery · Redis 판독 파이프라인, 알림 · 본인인증 백엔드, 자동 배포",
+        "화면: 환자 앱, 안드로이드 빌드"
+      ]
+    }
+  ]
+}
