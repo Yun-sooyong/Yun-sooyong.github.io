@@ -19,6 +19,7 @@ function card(p) {
 
   const links = el("p", { class: "card-links" }, [
     p.repo && el("a", { href: p.repo, text: "Repository" }),
+    p.notion && el("a", { href: p.notion, text: "상세 (Notion)" }),
     p.demo && el("a", { href: p.demo, text: "Demo" }),
   ]);
 
