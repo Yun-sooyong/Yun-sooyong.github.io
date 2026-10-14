@@ -71,9 +71,10 @@ function modalContent(p) {
     p.highlights?.length && section("핵심 구현", [el("ul", {}, p.highlights.map((h) => el("li", { text: h })))]),
     p.troubleshooting?.length && section("문제 해결", [el("div", { class: "trouble" }, p.troubleshooting.map((t) =>
       el("div", {}, [el("b", { text: t.problem }), el("span", { text: t.solution })])))]),
+    p.ai_usage?.length && section("AI 활용", [el("ul", {}, p.ai_usage.map((h) => el("li", { text: h })))]),
     p.stack?.length && section("기술 스택", [el("ul", { class: "chips" }, p.stack.map((s) => el("li", { text: s })))]),
     links.length && section("링크", [el("div", { class: "m-links" }, links),
-      p.ownership === "team" && el("p", { class: "note", text: "팀 프로젝트입니다. 위 내용은 본인이 담당한 부분입니다." })]),
+      p.ownership === "team" && el("p", { class: "note", text: "팀 프로젝트입니다. 위 내용은 본인이 담당한 부분이며, 구현에는 AI 도구(Claude Code)를 함께 썼습니다." })]),
   ];
 }
 

@@ -103,6 +103,7 @@ a { color: inherit; }
 .award-inline { color: var(--award-fg); font-weight: 700; }
 .points { margin: 10px 0 0; padding-left: 18px; font-size: .9rem; color: var(--muted); }
 .points li { margin: 5px 0; }
+.points b { color: var(--fg); }
 
 /* 프로젝트 */
 .projects { list-style: none; margin: 0; padding: 0; }
