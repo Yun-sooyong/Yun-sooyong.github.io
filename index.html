@@ -3,31 +3,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>윤수용 · Portfolio</title>
-  <meta name="description" content="윤수용의 포트폴리오: 프로젝트와 학습 기록">
+  <title>윤수용 · AI 서비스 백엔드 개발자</title>
+  <meta name="description" content="학습된 모델을 서비스로 연결하는 백엔드 개발자 윤수용의 포트폴리오">
+  <meta property="og:title" content="윤수용 · AI 서비스 백엔드 개발자">
+  <meta property="og:description" content="의료 AI 추론 서버, 비동기 추론 파이프라인, LLM 소견문 서버, 배포 자동화">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="wrap hero">
-    <p class="eyebrow">Portfolio</p>
+  <header class="hero wrap">
+    <p class="eyebrow">AI Service Backend Developer</p>
     <h1>윤수용</h1>
-    <p class="lead">만든 것과 맡은 역할을 정리한 곳입니다.</p>
-    <nav class="links">
-      <a href="https://github.com/Yun-sooyong">GitHub</a>
-      <a href="/blog/">Blog · 학습 노트</a>
+    <p class="role">AI 서비스 백엔드 개발자</p>
+    <p class="lead">학습된 모델을 서비스로 연결하는 백엔드를 만듭니다.<br>
+      추론 서버, 비동기 파이프라인, 배포 자동화를 맡아 왔습니다.</p>
+
+    <nav class="links" aria-label="주요 링크">
+      <a class="btn primary" href="https://github.com/Yun-sooyong" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://app.notion.com/p/yun-sooyong/Portfolio-043bf3e871e1431ca97f3444bd5f3df2" target="_blank" rel="noopener">이력 · 포트폴리오 (Notion)</a>
+      <a class="btn" href="/blog/">학습 블로그</a>
+      <a class="btn ghost" href="mailto:ysyg22@gmail.com">ysyg22@gmail.com</a>
     </nav>
+
+    <ul class="stack" aria-label="핵심 기술">
+      <li>FastAPI</li><li>Python</li><li>Docker</li><li>Django</li>
+    </ul>
   </header>
 
   <main class="wrap">
-    <h2>Projects</h2>
-    <div id="projects" class="projects" aria-live="polite">
-      <p class="muted">불러오는 중…</p>
-    </div>
+    <section aria-labelledby="featured-title">
+      <h2 id="featured-title" class="section-title">대표 프로젝트</h2>
+      <div id="featured" class="featured"></div>
+    </section>
+
+    <section aria-labelledby="others-title">
+      <h2 id="others-title" class="section-title">그 외 프로젝트</h2>
+      <ul id="others" class="others"></ul>
+    </section>
   </main>
 
-  <footer class="wrap muted">
-    <p>© 윤수용</p>
+  <footer class="wrap footer">
+    <p>건양대학교 융합IT 졸업 · 정보처리기사 · 미래융합교육원 바이오메디컬 AI 개발 과정 (2026.03 ~ 2026.10, 최종 프로젝트 우수상)</p>
+    <p class="muted">© 윤수용</p>
   </footer>
+
+  <dialog id="modal" aria-labelledby="modal-title">
+    <div class="modal-inner">
+      <button class="close" type="button" aria-label="닫기">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </dialog>
 
   <script src="app.js"></script>
 </body>

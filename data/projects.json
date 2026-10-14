@@ -3,26 +3,238 @@
     {
       "id": "empatho",
       "name": "EMPATHO",
+      "subtitle": "유방암 검진 경로 임상의사결정지원시스템(CDSS)",
+      "period": "2026.08 ~ 2026.10",
       "status": "done",
+      "featured": true,
+      "order": 1,
       "ownership": "team",
       "team_size": 5,
-      "one_liner": "유방 영상(맘모그래피·초음파·MRI)과 병리 슬라이드를 AI가 판독해 의사의 판독을 돕는 유방암 임상 의사결정 지원 시스템(CDSS)",
+      "role": "팀장 · AI 추론 서버 · 인프라 · 배포",
+      "one_liner": "유방 엑스레이·초음파·MRI·조직검사로 이어지는 검진 경로를 하나로 잇고, 단계별 AI 판독 결과와 소견문을 의료진과 환자에게 제공하는 시스템",
       "stack": [
+        "Python",
         "FastAPI",
         "PyTorch",
-        "Ollama",
         "Celery",
         "Redis",
-        "Docker Compose",
+        "Django",
+        "PostgreSQL",
+        "Docker",
+        "nginx",
         "GitHub Actions",
-        "Supervisor",
-        "FCM"
+        "Ollama"
       ],
-      "repo": "https://github.com/medical-ai-group-3/empatho",
-      "my_role": [
-        "모델: 병리 sTIL 추론 · 서빙",
-        "서버·인프라: 판독 · 소견문 서버, Celery · Redis 판독 파이프라인, 알림 · 본인인증 백엔드, 자동 배포",
-        "화면: 환자 앱, 안드로이드 빌드"
+      "repos": [
+        {
+          "label": "medical-ai-group-3/empatho",
+          "url": "https://github.com/medical-ai-group-3/empatho",
+          "public": true
+        }
+      ],
+      "notion": "https://app.notion.com/p/3d3258595efe81a48fe2e0ad8bea0efe",
+      "award": "바이오메디컬 AI 개발 과정 최종 프로젝트 우수상",
+      "images": [
+        {
+          "file": "empatho-architecture.png",
+          "caption": "시스템 구조"
+        },
+        {
+          "file": "empatho-lora-switching.png",
+          "caption": "백본 공유 + LoRA 스위칭"
+        },
+        {
+          "file": "empatho-report-server.png",
+          "caption": "LLM 소견문 서버"
+        }
+      ],
+      "highlights": [
+        "판독 서버(FastAPI) 단독 개발: 맘모·초음파·MRI·병리 판독 모델을 소켓 표 하나로 묶고, 모든 실패를 HTTP 200 '기권(abstained)' + 사유로 반환",
+        "MedSAM3 백본 1벌 공유 + 검사별 LoRA 교체: GPU 메모리 13,602 → 4,148 MiB, 따로 올린 결과와 비트 단위 동일, 교체 0.06~0.28초",
+        "지연 적재와 유휴 회수: 첫 요청에 모델을 올리고 120초 유휴 시 프로세스를 끝내 supervisor가 재시작 (empty_cache 후에도 6,156 MiB가 남는 문제 해결)",
+        "LLM 소견문 서버: 수치는 코드가 문장화하고 모델(gemma3 12B, temperature 0)은 문장만 엮음. 숫자가 하나라도 바뀌면 코드가 만든 뼈대 문장으로 대체 (같은 입력 50/50 동일)",
+        "Celery·Redis 판독 파이프라인: gpu 큐(동시 1)와 io 큐(동시 4) 분리, SSH 터널로 추론 서버를 외부에 열지 않고 연결",
+        "추론 서버 자동 배포: 헬스체크 + 실제 판독 smoke 테스트, 실패 시 이전 커밋으로 자동 롤백"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "모델을 내려도 GPU 메모리가 반환되지 않음 (del + empty_cache 후에도 6,156 MiB reserved)",
+          "solution": "PyTorch 캐싱 할당자 특성으로 판단. 유휴 120초가 지나면 프로세스를 끝내고 supervisor가 다시 띄우도록 변경"
+        },
+        {
+          "problem": "LoRA를 바꿔 끼울 때 이전 어댑터 값이 남으면 오류 없이 틀린 결과가 나옴",
+          "solution": "교체 전 모든 lora_B를 0으로 초기화. 5회 교체 결과를 따로 올린 모델과 비트 단위로 비교해 동일함을 확인"
+        },
+        {
+          "problem": "LLM이 판독 수치를 바꿔 씀 (볼록성 0.914 → 97%, 63.9px → 81.3mm)",
+          "solution": "수치 보존 검사 추가. 출력에서 숫자가 하나라도 빠지면 코드가 만든 뼈대 문장으로 대체"
+        },
+        {
+          "problem": "긴 판독(MRI 636초) 직후 응답 전에 유휴 회수가 일어남",
+          "solution": "판독 시작과 종료 양쪽에서 유휴 시간을 갱신"
+        },
+        {
+          "problem": "리포트 서버가 죽은 채로 배포가 두 번 통과함",
+          "solution": "리포트 서버 헬스체크와 실제 호출 smoke 테스트를 배포 단계에 추가"
+        }
+      ]
+    },
+    {
+      "id": "pathology-cdss",
+      "name": "병리영상 분석 CDSS",
+      "subtitle": "유방암 병리영상 sTIL 분석 · VLM 판독 리포트",
+      "period": "2026.07",
+      "status": "done",
+      "featured": true,
+      "order": 2,
+      "ownership": "team",
+      "team_size": 5,
+      "role": "백엔드 · GCP 인프라 단독 · 모델 서빙 · 배포",
+      "one_liner": "유방암 병리영상을 세그멘테이션해 종양 침윤 림프구(sTIL) 비율을 계산하고, 의료 VLM으로 판독 리포트를 생성하는 시스템",
+      "stack": [
+        "Python",
+        "Django",
+        "Django REST framework",
+        "FastAPI",
+        "ONNX Runtime",
+        "Cloud Run",
+        "Cloud Tasks",
+        "Cloud SQL",
+        "Cloud Storage",
+        "Docker",
+        "GitHub Actions",
+        "Gradio"
+      ],
+      "repos": [
+        {
+          "label": "medical-ai-group-3/cdss-project (서비스 단계, dev 브랜치)",
+          "public": false
+        },
+        {
+          "label": "medical-ai-group-3/model-platform (모델 서빙 단계)",
+          "public": false
+        }
+      ],
+      "notion": "https://app.notion.com/p/3d3258595efe81299876ee19093861f7",
+      "images": [
+        {
+          "file": "pathology-pipeline.png",
+          "caption": "비동기 추론 파이프라인"
+        },
+        {
+          "file": "pathology-model-serving.png",
+          "caption": "모델 서빙 단계"
+        }
+      ],
+      "highlights": [
+        "업로드 1건(Batch) = 이미지 1~15장 → 장당 Job → Cloud Tasks → Cloud Run Job 워커 → 콜백으로 결과 기록하는 비동기 추론 파이프라인",
+        "작업 상태 5단계(대기·처리중·sTIL 완료·완료·오류)로 세그멘테이션과 리포트 완료 시점을 분리해 중간 결과를 먼저 표시",
+        "GCS V4 서명 URL 직접 업로드: Cloud Run 기본 계정에 개인키가 없어 IAM SignBlob으로 서명",
+        "FastAPI + ONNX Runtime 추론 서버: models_config.yaml에 항목만 추가하면 모델이 늘어나는 구조, 가중치는 시작 시 GCS에서 받음",
+        "GitHub Actions → Workload Identity(키 없는 인증) → Artifact Registry → Cloud Run 배포 자동화, 더미 ONNX 모델로 배포 흐름 선검증",
+        "팀원이 GCP 권한 없이 전체 흐름을 로컬에서 실행하는 LOCAL_FAKE_GCP 모드"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "병리영상 업로드가 계속 실패 (팀은 Django 용량 설정을 원인으로 예상)",
+          "solution": "영상 151장을 측정: 최대 141MB, 평균 31.7MB, 54장(36%)이 32MB 초과. 원인은 Cloud Run HTTP/1 요청 32MiB 제한. Cloud Storage 서명 URL 직접 업로드로 전환하고 프론트 담당자와 협의"
+        },
+        {
+          "problem": "병렬 워커의 콜백으로 진행 수치가 어긋날 수 있음",
+          "solution": "전체·완료·오류 수를 컬럼에 저장하지 않고 작업 목록에서 집계"
+        },
+        {
+          "problem": "Gradio 데모의 결과 파일 다운로드 403과 'no available instance' 오류",
+          "solution": "결과를 만든 인스턴스가 아닌 다른 인스턴스로 요청이 가는 것이 원인. session affinity와 max-instances 3으로 조정"
+        },
+        {
+          "problem": "추론 서버가 시작 시 모델 4개를 모두 받다가 포트 대기 시간 초과로 배포 실패",
+          "solution": "데모 서비스는 모델을 처음 선택할 때만 GCS에서 받도록 지연 적재"
+        },
+        {
+          "problem": "Cloud Tasks에서 Cloud Run Job 실행 API 호출 시 401",
+          "solution": "googleapis 호출은 OIDC가 아니라 OAuth 액세스 토큰으로 인증하도록 변경"
+        }
+      ]
+    },
+    {
+      "id": "recare-dm",
+      "name": "ReCare-DM",
+      "subtitle": "당뇨 환자 재입원 위험 예측 대시보드",
+      "period": "2026.06",
+      "status": "done",
+      "featured": false,
+      "order": 3,
+      "ownership": "team",
+      "team_size": 5,
+      "role": "프로젝트 초기 구조 · 퇴원 관리 · 통합 · 배포 설정",
+      "one_liner": "당뇨 환자의 재입원 위험을 예측하고 그 근거를 SHAP으로 설명하는 의료진용 대시보드",
+      "stack": [
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "LightGBM",
+        "SHAP"
+      ],
+      "repos": [
+        {
+          "label": "Yun-sooyong/ReCare-DM-Dashboard",
+          "public": false
+        }
+      ],
+      "notion": "https://app.notion.com/p/3d3258595efe8142a3a2ed8eb2d5082b",
+      "images": [
+        {
+          "file": "recare-architecture.png",
+          "caption": "프로젝트 구조"
+        }
+      ],
+      "highlights": [
+        "Django 프로젝트 첫 커밋 · 앱 뼈대 · 공통 레이아웃(base.html)",
+        "퇴원 관리 앱: 퇴원 준비도 점수(5항목 × 20점)와 위험 요인 TOP 3, 퇴원 안내서·인쇄, 재방문 등록 시 LightGBM으로 재예측",
+        "통합 과정에서 대량 예측, 위험도 표시, 환자 이름 검색 수정",
+        "gunicorn 배포 설정 (메모리 제한에 맞춰 worker 1개, timeout 300초) · 모델 학습은 다른 팀원 담당"
+      ]
+    },
+    {
+      "id": "imaging-tablet",
+      "name": "의료영상 분석 플랫폼",
+      "subtitle": "의료진용 태블릿 앱",
+      "period": "2026.08",
+      "status": "done",
+      "featured": false,
+      "order": 4,
+      "ownership": "team",
+      "team_size": 5,
+      "role": "의료진용 태블릿 앱 전체 · 공용 테마 · 백엔드 사용자 모델",
+      "one_liner": "병리영상 분석 결과를 환자용 앱, 의료진용 태블릿 앱, 웹으로 제공하는 플랫폼",
+      "stack": [
+        "Flutter",
+        "Dart",
+        "Riverpod",
+        "Firebase",
+        "Django"
+      ],
+      "repos": [
+        {
+          "label": "medical-ai-group-3/cdss_ai_platform",
+          "public": false
+        }
+      ],
+      "notion": "https://app.notion.com/p/3d3258595efe8166add5ed0a17ec7b03",
+      "images": [
+        {
+          "file": "tablet-app-architecture.png",
+          "caption": "앱 구조"
+        }
+      ],
+      "highlights": [
+        "의료진용 태블릿 앱 전체: 배치 목록·상세, 세그멘테이션 마스크 오버레이 뷰어, QR 환자 확인, 판정 유보 확정, 공유",
+        "Riverpod 상태 관리 + go_router + API·Repository 계층 분리, 서버 계약 회귀 테스트",
+        "access 토큰 만료 시 refresh를 single-flight로 한 번만 실행하고 나머지 요청은 결과를 기다림, 토큰은 secure storage에 저장",
+        "서명 URL로 GCS 직접 업로드, FCM 분석 완료 푸시",
+        "레포 골격과 커스텀 User 모델을 첫 커밋에 확정 (AUTH_USER_MODEL은 최초 migrate 후 교체 불가)",
+        "환자용 앱·의료진용 앱·웹이 함께 쓰는 공용 테마 패키지"
       ]
     }
   ]
