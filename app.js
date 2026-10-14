@@ -34,7 +34,7 @@ function projectRow(p) {
       el("span", { class: "when" }, [start, end && el("br"), end && `~ ${end}`]),
       el("span", { class: "p-ico", "aria-hidden": "true", text: p.icon ?? "•" }),
       el("span", {}, [
-        el("span", { class: "p-name" }, [p.name, p.subtitle && el("small", { text: ` · ${p.subtitle}` })]),
+        el("span", { class: "p-name" }, [p.name, p.subtitle && el("small", { text: p.subtitle })]),
         el("span", { class: "tags" }, tags),
       ]),
     ]),

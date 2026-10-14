@@ -121,7 +121,7 @@ a { color: inherit; }
 .p-name { display: block; font-size: 1.05rem; font-weight: 700; }
 .proj > span { min-width: 0; }
 .p-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.p-name small { font-weight: 500; color: var(--muted); font-size: .82rem; }
+.p-name small { display: block; overflow: hidden; text-overflow: ellipsis; font-weight: 500; color: var(--muted); font-size: .82rem; }
 .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
 .tag { font-size: .74rem; font-weight: 700; padding: 1px 8px; border-radius: 4px; color: #fff; background: #4a5568; }
 .tag.team { background: #2f855a; }
