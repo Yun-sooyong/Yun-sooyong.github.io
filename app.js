@@ -41,6 +41,21 @@ function projectRow(p) {
   ]);
 }
 
+function caseRows(c) {
+  return el("dl", { class: "case-rows" }, [
+    el("dt", { text: "문제" }), el("dd", { text: c.problem }),
+    el("dt", { text: "해결" }), el("dd", { text: c.action }),
+    el("dt", { text: "결과" }), el("dd", { class: "case-result", text: c.result }),
+  ]);
+}
+
+function caseCard(p) {
+  return el("button", { class: "case", type: "button", "aria-haspopup": "dialog", onclick: () => openModal(p) }, [
+    el("span", { class: "case-title" }, [p.case.title, el("small", { text: ` · ${p.name}` })]),
+    caseRows(p.case),
+  ]);
+}
+
 function section(title, children) {
   return el("section", { class: "m-section" }, [el("h4", { text: title }), ...children]);
 }
@@ -61,6 +76,7 @@ function modalContent(p) {
     p.subtitle && el("p", { class: "m-sub", text: p.subtitle }),
     el("div", { class: "m-meta" }, [el("span", { text: metaText(p) }), el("span", { text: p.role })]),
     el("p", { text: p.one_liner }),
+    p.case && section(`핵심 사례 — ${p.case.title}`, [caseRows(p.case)]),
     p.images?.length && section("구조", p.images.map((img) =>
       el("figure", {}, [
         el("a", { href: IMG(img.file), target: "_blank", rel: "noopener" }, [
@@ -97,6 +113,7 @@ async function main() {
     if (!res.ok) throw new Error(res.status);
     const { projects } = await res.json();
     document.getElementById("projects").replaceChildren(...projects.map(projectRow));
+    document.getElementById("cases").replaceChildren(...projects.filter((p) => p.case).map(caseCard));
     const hit = projects.find((p) => `#${p.id}` === location.hash);
     if (hit) openModal(hit);
   } catch {
