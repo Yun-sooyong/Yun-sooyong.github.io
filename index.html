@@ -12,41 +12,89 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="hero wrap">
-    <p class="eyebrow">AI Service Backend Developer</p>
-    <h1>윤수용</h1>
-    <p class="role">AI 서비스 백엔드 개발자</p>
-    <p class="lead">학습된 모델을 서비스로 연결하는 백엔드를 만듭니다.<br>
-      추론 서버, 비동기 파이프라인, 배포 자동화를 맡아 왔습니다.</p>
-
-    <nav class="links" aria-label="주요 링크">
-      <a class="btn primary" href="https://github.com/Yun-sooyong" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="https://app.notion.com/p/yun-sooyong/Portfolio-043bf3e871e1431ca97f3444bd5f3df2" target="_blank" rel="noopener">이력 · 포트폴리오 (Notion)</a>
-      <a class="btn" href="/blog/">학습 블로그</a>
-      <a class="btn ghost" href="mailto:ysyg22@gmail.com">ysyg22@gmail.com</a>
-    </nav>
-
-    <ul class="stack" aria-label="핵심 기술">
-      <li>FastAPI</li><li>Python</li><li>Docker</li><li>Django</li>
-    </ul>
-  </header>
-
-  <main class="wrap">
-    <section aria-labelledby="featured-title">
-      <h2 id="featured-title" class="section-title">대표 프로젝트</h2>
-      <div id="featured" class="featured"></div>
+  <main class="sheet">
+    <!-- 1열: 이름과 기본 정보 -->
+    <section class="col col-1">
+      <h1 class="title">CAREER</h1>
+      <img class="photo" src="assets/img/profile.jpg" alt="윤수용 증명사진" width="354" height="472">
+      <h2 class="h">기본 정보</h2>
+      <dl class="info">
+        <dt>이름</dt><dd>윤수용</dd>
+        <dt>직군</dt><dd>AI 서비스 백엔드</dd>
+        <dt>이메일</dt><dd><a href="mailto:ysyg22@gmail.com">ysyg22@gmail.com</a></dd>
+      </dl>
+      <p class="intro">학습된 모델을 서비스로 연결하는 백엔드를 만듭니다. 추론 서버, 비동기 파이프라인, 배포 자동화를 맡아 왔습니다.</p>
     </section>
 
-    <section aria-labelledby="others-title">
-      <h2 id="others-title" class="section-title">그 외 프로젝트</h2>
-      <ul id="others" class="others"></ul>
+    <!-- 2열: 학력 · 교육 · 경력 · 자격 -->
+    <section class="col col-2">
+      <h2 class="h">학력과 교육이력</h2>
+      <ul class="rows">
+        <li><span class="when">2026.03<br>~ 2026.10</span><span class="what">미래융합교육원 바이오메디컬 AI 개발 과정<small>건양대학교병원 연계 · <b class="award-inline">최종 프로젝트 우수상</b></small></span></li>
+        <li><span class="when">2014.02<br>~ 2021.02</span><span class="what">건양대학교 융합IT 졸업</span></li>
+      </ul>
+
+      <h2 class="h">경력</h2>
+      <ul class="rows">
+        <li><span class="when">2024.02<br>~ 2026.02</span><span class="what">탄동농업협동조합 주임<small>식품·음료 판매 · 고객 응대 · 재고 관리 (개발 외 직무)</small></span></li>
+      </ul>
+
+      <h2 class="h">자격</h2>
+      <ul class="rows">
+        <li><span class="when">2019.11</span><span class="what">정보처리기사<small>한국산업인력공단</small></span></li>
+        <li><span class="when">2024.09</span><span class="what">유통관리사 2급<small>대한상공회의소</small></span></li>
+      </ul>
+
+      <h2 class="h">강점</h2>
+      <ul class="points">
+        <li>추측하기 전에 측정합니다 — 업로드 실패를 영상 151장 측정으로 원인(Cloud Run 32MiB 제한)까지 좁혔습니다.</li>
+        <li>모델 학습이 끝나기 전에 더미 모델로 서빙·배포를 먼저 검증합니다.</li>
+      </ul>
+    </section>
+
+    <!-- 3열: 프로젝트 · 링크 · 스킬 -->
+    <section class="col col-3">
+      <h2 class="h">프로젝트 <span class="hint">눌러서 자세히 보기</span></h2>
+      <ul id="projects" class="projects" aria-live="polite"></ul>
+
+      <h2 class="h">깃허브와 블로그</h2>
+      <ul class="links">
+        <li><span class="ico" style="--c:#181717;--i:url(assets/icons/github.svg)"></span><span class="lk">깃허브</span><a href="https://github.com/Yun-sooyong" target="_blank" rel="noopener">github.com/Yun-sooyong</a></li>
+        <li><span class="ico" style="--c:#000;--i:url(assets/icons/notion.svg)"></span><span class="lk">노션</span><a href="https://app.notion.com/p/yun-sooyong/Portfolio-043bf3e871e1431ca97f3444bd5f3df2" target="_blank" rel="noopener">프로젝트 상세 페이지</a></li>
+        <li><span class="ico" style="--c:#284b63;--i:url(assets/icons/rss.svg)"></span><span class="lk">블로그</span><a href="/blog/">yun-sooyong.github.io/blog</a></li>
+      </ul>
+
+      <h2 class="h">스킬</h2>
+      <ul class="skills">
+        <li>
+          <span class="tiles">
+            <span class="tile" title="FastAPI" style="--c:#009688;--i:url(assets/icons/fastapi.svg)"></span>
+            <span class="tile" title="Python" style="--c:#3776AB;--i:url(assets/icons/python.svg)"></span>
+            <span class="tile" title="Docker" style="--c:#2496ED;--i:url(assets/icons/docker.svg)"></span>
+            <span class="tile" title="Django" style="--c:#092E20;--i:url(assets/icons/django.svg)"></span>
+          </span>
+          <span class="sk"><span>FastAPI, Python, Docker, Django</span><b class="lv lv-main">주력</b></span>
+        </li>
+        <li>
+          <span class="tiles">
+            <span class="tile" title="Celery" style="--c:#37814A;--i:url(assets/icons/celery.svg)"></span>
+            <span class="tile" title="Redis" style="--c:#DC382D;--i:url(assets/icons/redis.svg)"></span>
+            <span class="tile" title="PostgreSQL" style="--c:#4169E1;--i:url(assets/icons/postgresql.svg)"></span>
+            <span class="tile" title="Google Cloud" style="--c:#4285F4;--i:url(assets/icons/googlecloud.svg)"></span>
+          </span>
+          <span class="sk"><span>Celery, Redis, PostgreSQL, GCP</span><b class="lv lv-use">사용 경험</b></span>
+        </li>
+        <li>
+          <span class="tiles">
+            <span class="tile" title="PyTorch" style="--c:#EE4C2C;--i:url(assets/icons/pytorch.svg)"></span>
+            <span class="tile" title="Flutter" style="--c:#02569B;--i:url(assets/icons/flutter.svg)"></span>
+            <span class="tile" title="GitHub Actions" style="--c:#2088FF;--i:url(assets/icons/githubactions.svg)"></span>
+          </span>
+          <span class="sk"><span>PyTorch(서빙), Flutter, GitHub Actions</span><b class="lv lv-etc">기타</b></span>
+        </li>
+      </ul>
     </section>
   </main>
-
-  <footer class="wrap footer">
-    <p>건양대학교 융합IT 졸업 · 정보처리기사 · 미래융합교육원 바이오메디컬 AI 개발 과정 (2026.03 ~ 2026.10, 최종 프로젝트 우수상)</p>
-    <p class="muted">© 윤수용</p>
-  </footer>
 
   <dialog id="modal" aria-labelledby="modal-title">
     <div class="modal-inner">

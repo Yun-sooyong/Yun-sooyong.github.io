@@ -22,28 +22,21 @@ function metaText(p) {
   return parts.join(" · ");
 }
 
-function card(p) {
-  const img = p.images?.[0];
-  return el("button", { class: "card", type: "button", "aria-haspopup": "dialog", onclick: () => openModal(p) }, [
-    img && el("div", { class: "thumb" }, [el("img", { src: IMG(img.file), alt: `${p.name} ${img.caption}`, loading: "lazy" })]),
-    el("div", { class: "card-body" }, [
-      p.award && el("span", { class: "award", text: p.award }),
-      el("h3", { text: p.name }),
-      p.subtitle && el("p", { class: "sub", text: p.subtitle }),
-      el("p", { class: "meta", text: `${metaText(p)} · ${p.role}` }),
-      el("p", { class: "desc", text: p.one_liner }),
-      p.stack && el("ul", { class: "tags" }, p.stack.slice(0, 6).map((s) => el("li", { text: s }))),
-      el("span", { class: "more", text: "자세히 보기 →" }),
-    ]),
-  ]);
-}
-
-function row(p) {
+function projectRow(p) {
+  const tags = [
+    p.ownership === "team" ? el("span", { class: "tag team", text: `팀 ${p.team_size ?? ""}인`.trim() }) : el("span", { class: "tag", text: "개인" }),
+    ...(p.tags ?? []).map((t) => el("span", { class: `tag t-${t.replace(/\s+/g, "-")}`, text: t })),
+    p.award && el("span", { class: "tag award", text: "우수상" }),
+  ];
+  const [start, end] = (p.period ?? "").split("~").map((x) => x && x.trim());
   return el("li", {}, [
-    el("button", { class: "row", type: "button", "aria-haspopup": "dialog", onclick: () => openModal(p) }, [
-      el("span", { class: "row-title", text: `${p.name} — ${p.subtitle ?? ""}` }),
-      el("span", { class: "row-period", text: p.period }),
-      el("span", { class: "row-sub", text: p.role }),
+    el("button", { class: "proj", type: "button", "aria-haspopup": "dialog", onclick: () => openModal(p) }, [
+      el("span", { class: "when" }, [start, end && el("br"), end && `~ ${end}`]),
+      el("span", { class: "p-ico", "aria-hidden": "true", text: p.icon ?? "•" }),
+      el("span", {}, [
+        el("span", { class: "p-name" }, [p.name, p.subtitle && el("small", { text: ` · ${p.subtitle}` })]),
+        el("span", { class: "tags" }, tags),
+      ]),
     ]),
   ]);
 }
@@ -78,7 +71,7 @@ function modalContent(p) {
     p.highlights?.length && section("핵심 구현", [el("ul", {}, p.highlights.map((h) => el("li", { text: h })))]),
     p.troubleshooting?.length && section("문제 해결", [el("div", { class: "trouble" }, p.troubleshooting.map((t) =>
       el("div", {}, [el("b", { text: t.problem }), el("span", { text: t.solution })])))]),
-    p.stack?.length && section("기술 스택", [el("ul", { class: "tags" }, p.stack.map((s) => el("li", { text: s })))]),
+    p.stack?.length && section("기술 스택", [el("ul", { class: "chips" }, p.stack.map((s) => el("li", { text: s })))]),
     links.length && section("링크", [el("div", { class: "m-links" }, links),
       p.ownership === "team" && el("p", { class: "note", text: "팀 프로젝트입니다. 위 내용은 본인이 담당한 부분입니다." })]),
   ];
@@ -102,12 +95,11 @@ async function main() {
     const res = await fetch("data/projects.json", { cache: "no-cache" });
     if (!res.ok) throw new Error(res.status);
     const { projects } = await res.json();
-    document.getElementById("featured").replaceChildren(...projects.filter((p) => p.featured).map(card));
-    document.getElementById("others").replaceChildren(...projects.filter((p) => !p.featured).map(row));
+    document.getElementById("projects").replaceChildren(...projects.map(projectRow));
     const hit = projects.find((p) => `#${p.id}` === location.hash);
     if (hit) openModal(hit);
   } catch {
-    document.getElementById("featured").replaceChildren(el("p", { class: "muted", text: "프로젝트 목록을 불러오지 못했습니다." }));
+    document.getElementById("projects").replaceChildren(el("li", { text: "프로젝트 목록을 불러오지 못했습니다." }));
   }
 }
 
