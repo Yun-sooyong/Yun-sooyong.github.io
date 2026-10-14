@@ -38,7 +38,7 @@
           "public": true
         }
       ],
-      "notion": "https://app.notion.com/p/3d3258595efe81a48fe2e0ad8bea0efe",
+      "notion": "https://yun-sooyong.notion.site/3d3258595efe81a48fe2e0ad8bea0efe",
       "award": "바이오메디컬 AI 개발 과정 최종 프로젝트 우수상",
       "images": [
         {
@@ -119,7 +119,7 @@
       "tags": [
         "모바일"
       ],
-      "role": "의료진용 태블릿 앱 전체 · 공용 테마 · 백엔드 사용자 모델",
+      "role": "의료진용 태블릿 앱 · 공용 테마 · 백엔드 사용자 모델",
       "one_liner": "병리영상 분석 결과를 환자용 앱, 의료진용 태블릿 앱, 웹으로 제공하는 플랫폼",
       "stack": [
         "Flutter",
@@ -134,7 +134,7 @@
           "public": false
         }
       ],
-      "notion": "https://app.notion.com/p/3d3258595efe8166add5ed0a17ec7b03",
+      "notion": "https://yun-sooyong.notion.site/3d3258595efe8166add5ed0a17ec7b03",
       "images": [
         {
           "file": "tablet-app-architecture.png",
@@ -142,7 +142,7 @@
         }
       ],
       "highlights": [
-        "의료진용 태블릿 앱 전체: 배치 목록·상세, 세그멘테이션 마스크 오버레이 뷰어, QR 환자 확인, 판정 유보 확정, 공유",
+        "의료진용 태블릿 앱: 배치 목록·상세, 세그멘테이션 마스크 오버레이 뷰어, QR 환자 확인, 판정 유보 확정, 공유",
         "Riverpod 상태 관리 + go_router + API·Repository 계층 분리, 서버 계약 회귀 테스트",
         "access 토큰 만료 시 refresh를 single-flight로 한 번만 실행하고 나머지 요청은 결과를 기다림, 토큰은 secure storage에 저장",
         "서명 URL로 GCS 직접 업로드, FCM 분석 완료 푸시",
@@ -191,7 +191,7 @@
           "public": false
         }
       ],
-      "notion": "https://app.notion.com/p/3d3258595efe81299876ee19093861f7",
+      "notion": "https://yun-sooyong.notion.site/3d3258595efe81299876ee19093861f7",
       "images": [
         {
           "file": "pathology-pipeline.png",
@@ -262,7 +262,7 @@
           "public": false
         }
       ],
-      "notion": "https://app.notion.com/p/3d3258595efe8142a3a2ed8eb2d5082b",
+      "notion": "https://yun-sooyong.notion.site/3d3258595efe8142a3a2ed8eb2d5082b",
       "images": [
         {
           "file": "recare-architecture.png",
