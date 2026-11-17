@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>페이지 이동 중</title>
+  <script>
+    // 블로그가 루트에서 /blog로 옮겨졌다. 예전 블로그 주소(/글이름)로 오면 /blog/글이름으로 보낸다.
+    (function () {
+      var path = location.pathname;
+      if (path.indexOf("/blog/") !== 0 && path !== "/blog") {
+        location.replace("/blog" + path + location.search + location.hash);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>페이지를 찾을 수 없습니다. <a href="/">포트폴리오</a> · <a href="/blog/">블로그</a></p>
+</body>
+</html>
